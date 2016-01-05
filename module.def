@@ -1,0 +1,5 @@
+[Module]
+Name=Jumper
+Version=1.00
+Files=Jumper.lua
+Enabled=1
