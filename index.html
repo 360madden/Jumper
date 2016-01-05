@@ -43,25 +43,201 @@
 
 <p>This automatic page generator is the easiest way to create beautiful pages for all of your projects. Author your page content here <a href="https://guides.github.com/features/mastering-markdown/">using GitHub Flavored Markdown</a>, select a template crafted by a designer, and publish. After your page is generated, you can check out the new <code>gh-pages</code> branch locally. If you’re using GitHub Desktop, simply sync your repository and you’ll see the new branch.</p>
 
-<h3>
-<a id="designer-templates" class="anchor" href="#designer-templates" aria-hidden="true"><span class="octicon octicon-link"></span></a>Designer Templates</h3>
+<pre><code>            --          by 360madden! 
+            --              Jumper v1.00 initial release!
 
-<p>We’ve crafted some handsome templates for you to use. Go ahead and click 'Continue to layouts' to browse through them. You can easily go back to edit your page before publishing. After publishing your page, you can revisit the page generator and switch to another theme. Your Page content will be preserved.</p>
 
-<h3>
-<a id="creating-pages-manually" class="anchor" href="#creating-pages-manually" aria-hidden="true"><span class="octicon octicon-link"></span></a>Creating pages manually</h3>
+Jumper = { }
+Jumper.lastticks = 0
+Jumper.running = false
+Jumper.initialized = false
 
-<p>If you prefer to not use the automatic generator, push a branch named <code>gh-pages</code> to your repository to create a page manually. In addition to supporting regular HTML content, GitHub Pages support Jekyll, a simple, blog aware static site generator. Jekyll makes it easy to create site-wide headers and footers without having to copy them across every page. It also offers intelligent blog support and other advanced templating features.</p>
+--------------------------------------------------------------------
+function Jumper.ModuleInit()
+    GUI_NewWindow("Jumper",300,300,220,300)
+    GUI_WindowVisible("Jumper",true)
 
-<h3>
-<a id="authors-and-contributors" class="anchor" href="#authors-and-contributors" aria-hidden="true"><span class="octicon octicon-link"></span></a>Authors and Contributors</h3>
+    GUI_NewButton("Jumper","Jump to Target","Jumper.mitarget") 
+        RegisterEventHandler("Jumper.mitarget", Jumper.Func)
 
-<p>You can <a href="https://github.com/blog/821" class="user-mention">@mention</a> a GitHub username to generate a link to their profile. The resulting <code>&lt;a&gt;</code> element will link to the contributor’s GitHub Profile. For example: In 2007, Chris Wanstrath (<a href="https://github.com/defunkt" class="user-mention">@defunkt</a>), PJ Hyett (<a href="https://github.com/pjhyett" class="user-mention">@pjhyett</a>), and Tom Preston-Werner (<a href="https://github.com/mojombo" class="user-mention">@mojombo</a>) founded GitHub.</p>
+    GUI_NewButton("Jumper","Mansion:","Jumper.Mansion","Battle of Kyhlo")
+    GUI_NewButton("Jumper","Clock Tower:","Jumper.ClockTower","Battle of Kyhlo")
+    GUI_NewButton("Jumper","Windmill:","Jumper.Windmill","Battle of Kyhlo")
+        RegisterEventHandler("Jumper.Mansion", Jumper.Func)
+        RegisterEventHandler("Jumper.ClockTower", Jumper.Func)
+        RegisterEventHandler("Jumper.Windmill", Jumper.Func)
 
-<h3>
-<a id="support-or-contact" class="anchor" href="#support-or-contact" aria-hidden="true"><span class="octicon octicon-link"></span></a>Support or Contact</h3>
+    GUI_NewButton("Jumper","Henge:","Jumper.Henge","Forest of Niflhel")
+    GUI_NewButton("Jumper","Keep:","Jumper.Keep","Forest of Niflhel")
+    GUI_NewButton("Jumper","Mine:","Jumper.Mine","Forest of Niflhel")
+        RegisterEventHandler("Jumper.Henge", Jumper.Func)
+        RegisterEventHandler("Jumper.Keep", Jumper.Func)
+        RegisterEventHandler("Jumper.Mine", Jumper.Func)
 
-<p>Having trouble with Pages? Check out our <a href="https://help.github.com/pages">documentation</a> or <a href="https://github.com/contact">contact support</a> and we’ll help you sort it out.</p>
+    GUI_NewButton("Jumper","Waterfall:","Jumper.Waterfall","Legacy of the Foefire")
+    GUI_NewButton("Jumper","Graveyard:","Jumper.Graveyard","Legacy of the Foefire")
+    GUI_NewButton("Jumper","Quarry:","Jumper.Quarry","Legacy of the Foefire")
+        RegisterEventHandler("Jumper.Waterfall", Jumper.Func)
+        RegisterEventHandler("Jumper.Graveyard", Jumper.Func)
+        RegisterEventHandler("Jumper.Quarry", Jumper.Func)
+
+    GUI_NewButton("Jumper","Altar:","Jumper.Altar","Temple of the Silent Storm")        
+    GUI_NewButton("Jumper","Gate:","Jumper.Gate","Temple of the Silent Storm")      
+    GUI_NewButton("Jumper","Temple:","Jumper.Temple","Temple of the Silent Storm")      
+        RegisterEventHandler("Jumper.Altar", Jumper.Func)
+        RegisterEventHandler("Jumper.Gate", Jumper.Func)
+        RegisterEventHandler("Jumper.Temple", Jumper.Func)
+
+    GUI_NewButton("Jumper","Bear:","Jumper.Bear","Spirit Watch")
+    GUI_NewButton("Jumper","Raven:","Jumper.Raven","Spirit Watch")
+    GUI_NewButton("Jumper","Wolf:","Jumper.Wolf","Spirit Watch")
+        RegisterEventHandler("Jumper.Bear", Jumper.Func)
+        RegisterEventHandler("Jumper.Raven", Jumper.Func)
+        RegisterEventHandler("Jumper.Wolf", Jumper.Func)
+
+    GUI_NewButton("Jumper","PointA:","Jumper.PointA","Skyhammer")
+    GUI_NewButton("Jumper","PointB:","Jumper.PointB","Skyhammer")
+    GUI_NewButton("Jumper","PointC:","Jumper.PointC","Skyhammer")
+        RegisterEventHandler("Jumper.PointA", Jumper.Func)
+        RegisterEventHandler("Jumper.PointB", Jumper.Func)
+        RegisterEventHandler("Jumper.PointC", Jumper.Func)
+
+Jumper.initialized = true
+
+end
+--------------------------------------------------------------------
+function Jumper.Func ( arg ) 
+    if ( arg == "Jumper.Mansion") then
+        local Mansionx = -951 
+        local Mansiony = -3941
+        local Mansionz = -494
+        d(Player:Teleport(tonumber(Mansionx),tonumber(Mansiony),tonumber(Mansionz)))
+
+        elseif ( arg == "Jumper.ClockTower" ) then
+        local ClockTowerx = -23
+        local ClockTowery = -34
+        local ClockTowerz = -614        
+        d(Player:Teleport(tonumber(ClockTowerx),tonumber(ClockTowery),tonumber(ClockTowerz)))
+
+        elseif ( arg == "Jumper.Windmill" ) then
+        local Windmillx = 726
+        local Windmilly = 3797
+        local Windmillz = -512
+        d(Player:Teleport(tonumber(Windmillx),tonumber(Windmilly),tonumber(Windmillz)))
+        --------------------------------------------------              
+        elseif ( arg == "Jumper.Henge" ) then
+        local Hengex = -4642
+        local Hengey = 1885
+        local Hengez = -217 
+        d(Player:Teleport(tonumber(Hengex),tonumber(Hengey),tonumber(Hengez)))
+
+        elseif ( arg == "Jumper.Keep" ) then
+        local Keepx = -112
+        local Keepy = 5000
+        local Keepz = -806
+        d(Player:Teleport(tonumber(Keepx),tonumber(Keepy),tonumber(Keepz)))
+
+        elseif ( arg == "Jumper.Mine" ) then
+        local Minex = 4173
+        local Miney = 1900  
+        local Minez = -490
+        d(Player:Teleport(tonumber(Minex),tonumber(Miney),tonumber(Minez)))
+        --------------------------------------------------              
+        elseif ( arg == "Jumper.Waterfall" ) then
+        local Waterfallx = 757
+        local Waterfally = 5488
+        local Waterfallz = -664
+        d(Player:Teleport(tonumber(Waterfallx),tonumber(Waterfally),tonumber(Waterfallz)))
+
+        elseif ( arg == "Jumper.Graveyard" ) then
+        local Graveyardx = 3096
+        local Graveyardy = 1637
+        local Graveyardz = -449
+        d(Player:Teleport(tonumber(Graveyardx),tonumber(Graveyardy),tonumber(Graveyardz)))
+
+        elseif ( arg == "Jumper.Quarry" ) then
+        local Quarryx = 5343
+        local Quarryy = -2367
+        local Quarryz =  -668
+        d(Player:Teleport(tonumber(Quarryx),tonumber(Quarryy),tonumber(Quarryz)))
+        --------------------------------------------------              
+        elseif ( arg == "Jumper.Altar" ) then
+        local Altarx = -5698
+        local Altary = 3770
+        local Altarz = -2078
+        d(Player:Teleport(tonumber(Altarx),tonumber(Altary),tonumber(Altarz)))
+
+        elseif ( arg == "Jumper.Gate" ) then
+        local Gatex = -1878
+        local Gatey = 472
+        local Gatez = -850
+        d(Player:Teleport(tonumber(Gatex),tonumber(Gatey),tonumber(Gatez)))
+
+        elseif ( arg == "Jumper.Temple" ) then
+        local Templex = 1849
+        local Templey = 4364
+        local Templez = -2076
+        d(Player:Teleport(tonumber(Templex),tonumber(Templey),tonumber(Templez)))
+        --------------------------------------------------              
+        elseif ( arg == "Jumper.Bear" ) then
+        local Bearx = 4514
+        local Beary = -356
+        local Bearz = -1056
+        d(Player:Teleport(tonumber(Bearx),tonumber(Beary),tonumber(Bearz)))
+
+        elseif ( arg == "Jumper.Raven" ) then
+        local Ravenx = 790
+        local Raveny = 2980
+        local Ravenz = -1304
+        d(Player:Teleport(tonumber(Ravenx),tonumber(Raveny),tonumber(Ravenz)))
+
+        elseif ( arg == "Jumper.Wolf" ) then
+        local Wolfx = -3097
+        local Wolfy = -364
+        local Wolfz = -1057
+        d(Player:Teleport(tonumber(Wolfx),tonumber(Wolfy),tonumber(Wolfz)))
+        --------------------------------------------------              
+        elseif ( arg == "Jumper.PointA" ) then
+        local PointAx = 1904
+        local PointAy = -1149
+        local PointAz = -2485
+        d(Player:Teleport(tonumber(PointAx),tonumber(PointAy),tonumber(PointAz)))
+
+        elseif ( arg == "Jumper.PointB" ) then
+        local PointBx = -1405
+        local PointBy = 1626
+        local PointBz = -3224
+        d(Player:Teleport(tonumber(PointBx),tonumber(PointBy),tonumber(PointBz)))
+
+        elseif ( arg == "Jumper.PointC" ) then
+        local PointCx = 1892
+        local PointCy = 4590
+        local PointCz = -2485
+        d(Player:Teleport(tonumber(PointCx),tonumber(PointCy),tonumber(PointCz)))
+        --------------------------------------------------                      
+        elseif ( arg == "Jumper.mitarget" ) then
+        local t = Player:GetTarget()
+        d(Player:Teleport(tonumber(t.pos.x),tonumber(t.pos.y),tonumber(t.pos.z)))
+
+    end
+end
+--------------------------------------------------------------------
+function Jumper.OnUpdateHandler( Event, ticks )     
+    if ( Jumper.running and Jumper.initialized ) then
+        if ( ticks - Jumper.lastticks &gt; 500 ) then
+            if ( Jumper.lastticks == 0 ) then
+                Jumper.lastticks = ticks + 2000
+                return
+            end         
+            Jumper.lastticks = ticks
+        end
+    end
+end
+--------------------------------------------------------------------
+RegisterEventHandler("Module.Initalize",Jumper.ModuleInit)
+RegisterEventHandler("Gameloop.Update", Jumper.OnUpdateHandler)
+RegisterEventHandler("GUI.Update",Jumper.GUIVarUpdate)
+</code></pre>
       </section>
 
     </div>
