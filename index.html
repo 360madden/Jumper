@@ -38,200 +38,115 @@
           <span class="credits right">Hosted on GitHub Pages &mdash; Theme by <a href="https://twitter.com/michigangraham">mattgraham</a></span>
         </div>
 
-        <pre><code>            --          by 360madden! 
-            --              Jumper v1.00 initial release!
+        <pre><code>--- 12/26/2015 work in progress. just trying to get the basics working at the moment.
+--- 12/29/2015 First rough build now working! 
+--- 01/07/2015 Fixed the CCT index nil error, streamlined the UI a bit.
 
+Creep = { }
+Creep.lastticks = 0
+Creep.running = false
+Creep.initialized = false
 
-Jumper = { }
-Jumper.lastticks = 0
-Jumper.running = false
-Jumper.initialized = false
+function Creep.ModuleInit()
+    GUI_NewWindow("Creep",300,300,250,160)
+    GUI_WindowVisible("Creep",true) 
+    GUI_NewField("Creep","Target Name","TName","MainMenu")
+    GUI_NewField("Creep","Target Health","CCTHP","MainMenu")
+    GUI_NewField("Creep","Target       XYZ: ","TPos","MainMenu")
+    GUI_NewField("Creep","    "," ","MainMenu")
+    GUI_NewField("Creep","My Position XYZ: ","myposition","MainMenu")
+    GUI_NewField("Creep","Distance","TDist","MainMenu")
 
---------------------------------------------------------------------
-function Jumper.ModuleInit()
-    GUI_NewWindow("Jumper",300,300,220,300)
-    GUI_WindowVisible("Jumper",true)
-
-    GUI_NewButton("Jumper","Jump to Target","Jumper.mitarget") 
-        RegisterEventHandler("Jumper.mitarget", Jumper.Func)
-
-    GUI_NewButton("Jumper","Mansion:","Jumper.Mansion","Battle of Kyhlo")
-    GUI_NewButton("Jumper","Clock Tower:","Jumper.ClockTower","Battle of Kyhlo")
-    GUI_NewButton("Jumper","Windmill:","Jumper.Windmill","Battle of Kyhlo")
-        RegisterEventHandler("Jumper.Mansion", Jumper.Func)
-        RegisterEventHandler("Jumper.ClockTower", Jumper.Func)
-        RegisterEventHandler("Jumper.Windmill", Jumper.Func)
-
-    GUI_NewButton("Jumper","Henge:","Jumper.Henge","Forest of Niflhel")
-    GUI_NewButton("Jumper","Keep:","Jumper.Keep","Forest of Niflhel")
-    GUI_NewButton("Jumper","Mine:","Jumper.Mine","Forest of Niflhel")
-        RegisterEventHandler("Jumper.Henge", Jumper.Func)
-        RegisterEventHandler("Jumper.Keep", Jumper.Func)
-        RegisterEventHandler("Jumper.Mine", Jumper.Func)
-
-    GUI_NewButton("Jumper","Waterfall:","Jumper.Waterfall","Legacy of the Foefire")
-    GUI_NewButton("Jumper","Graveyard:","Jumper.Graveyard","Legacy of the Foefire")
-    GUI_NewButton("Jumper","Quarry:","Jumper.Quarry","Legacy of the Foefire")
-        RegisterEventHandler("Jumper.Waterfall", Jumper.Func)
-        RegisterEventHandler("Jumper.Graveyard", Jumper.Func)
-        RegisterEventHandler("Jumper.Quarry", Jumper.Func)
-
-    GUI_NewButton("Jumper","Altar:","Jumper.Altar","Temple of the Silent Storm")        
-    GUI_NewButton("Jumper","Gate:","Jumper.Gate","Temple of the Silent Storm")      
-    GUI_NewButton("Jumper","Temple:","Jumper.Temple","Temple of the Silent Storm")      
-        RegisterEventHandler("Jumper.Altar", Jumper.Func)
-        RegisterEventHandler("Jumper.Gate", Jumper.Func)
-        RegisterEventHandler("Jumper.Temple", Jumper.Func)
-
-    GUI_NewButton("Jumper","Bear:","Jumper.Bear","Spirit Watch")
-    GUI_NewButton("Jumper","Raven:","Jumper.Raven","Spirit Watch")
-    GUI_NewButton("Jumper","Wolf:","Jumper.Wolf","Spirit Watch")
-        RegisterEventHandler("Jumper.Bear", Jumper.Func)
-        RegisterEventHandler("Jumper.Raven", Jumper.Func)
-        RegisterEventHandler("Jumper.Wolf", Jumper.Func)
-
-    GUI_NewButton("Jumper","PointA:","Jumper.PointA","Skyhammer")
-    GUI_NewButton("Jumper","PointB:","Jumper.PointB","Skyhammer")
-    GUI_NewButton("Jumper","PointC:","Jumper.PointC","Skyhammer")
-        RegisterEventHandler("Jumper.PointA", Jumper.Func)
-        RegisterEventHandler("Jumper.PointB", Jumper.Func)
-        RegisterEventHandler("Jumper.PointC", Jumper.Func)
-
-Jumper.initialized = true
-
+    GUI_NewButton("Creep","Perform Creep","Creep.Teleport")
+    RegisterEventHandler("Creep.Teleport", Creep.func)
 end
---------------------------------------------------------------------
-function Jumper.Func ( arg ) 
-    if ( arg == "Jumper.Mansion") then
-        local Mansionx = -951 
-        local Mansiony = -3941
-        local Mansionz = -494
-        d(Player:Teleport(tonumber(Mansionx),tonumber(Mansiony),tonumber(Mansionz)))
 
-        elseif ( arg == "Jumper.ClockTower" ) then
-        local ClockTowerx = -23
-        local ClockTowery = -34
-        local ClockTowerz = -614        
-        d(Player:Teleport(tonumber(ClockTowerx),tonumber(ClockTowery),tonumber(ClockTowerz)))
+function Creep.func ( arg ) -- perform the Teleport
+    if ( arg == "Creep.Teleport" ) then local CCT = Player:GetTarget()
 
-        elseif ( arg == "Jumper.Windmill" ) then
-        local Windmillx = 726
-        local Windmilly = 3797
-        local Windmillz = -512
-        d(Player:Teleport(tonumber(Windmillx),tonumber(Windmilly),tonumber(Windmillz)))
-        --------------------------------------------------              
-        elseif ( arg == "Jumper.Henge" ) then
-        local Hengex = -4642
-        local Hengey = 1885
-        local Hengez = -217 
-        d(Player:Teleport(tonumber(Hengex),tonumber(Hengey),tonumber(Hengez)))
-
-        elseif ( arg == "Jumper.Keep" ) then
-        local Keepx = -112
-        local Keepy = 5000
-        local Keepz = -806
-        d(Player:Teleport(tonumber(Keepx),tonumber(Keepy),tonumber(Keepz)))
-
-        elseif ( arg == "Jumper.Mine" ) then
-        local Minex = 4173
-        local Miney = 1900  
-        local Minez = -490
-        d(Player:Teleport(tonumber(Minex),tonumber(Miney),tonumber(Minez)))
-        --------------------------------------------------              
-        elseif ( arg == "Jumper.Waterfall" ) then
-        local Waterfallx = 757
-        local Waterfally = 5488
-        local Waterfallz = -664
-        d(Player:Teleport(tonumber(Waterfallx),tonumber(Waterfally),tonumber(Waterfallz)))
-
-        elseif ( arg == "Jumper.Graveyard" ) then
-        local Graveyardx = 3096
-        local Graveyardy = 1637
-        local Graveyardz = -449
-        d(Player:Teleport(tonumber(Graveyardx),tonumber(Graveyardy),tonumber(Graveyardz)))
-
-        elseif ( arg == "Jumper.Quarry" ) then
-        local Quarryx = 5343
-        local Quarryy = -2367
-        local Quarryz =  -668
-        d(Player:Teleport(tonumber(Quarryx),tonumber(Quarryy),tonumber(Quarryz)))
-        --------------------------------------------------              
-        elseif ( arg == "Jumper.Altar" ) then
-        local Altarx = -5698
-        local Altary = 3770
-        local Altarz = -2078
-        d(Player:Teleport(tonumber(Altarx),tonumber(Altary),tonumber(Altarz)))
-
-        elseif ( arg == "Jumper.Gate" ) then
-        local Gatex = -1878
-        local Gatey = 472
-        local Gatez = -850
-        d(Player:Teleport(tonumber(Gatex),tonumber(Gatey),tonumber(Gatez)))
-
-        elseif ( arg == "Jumper.Temple" ) then
-        local Templex = 1849
-        local Templey = 4364
-        local Templez = -2076
-        d(Player:Teleport(tonumber(Templex),tonumber(Templey),tonumber(Templez)))
-        --------------------------------------------------              
-        elseif ( arg == "Jumper.Bear" ) then
-        local Bearx = 4514
-        local Beary = -356
-        local Bearz = -1056
-        d(Player:Teleport(tonumber(Bearx),tonumber(Beary),tonumber(Bearz)))
-
-        elseif ( arg == "Jumper.Raven" ) then
-        local Ravenx = 790
-        local Raveny = 2980
-        local Ravenz = -1304
-        d(Player:Teleport(tonumber(Ravenx),tonumber(Raveny),tonumber(Ravenz)))
-
-        elseif ( arg == "Jumper.Wolf" ) then
-        local Wolfx = -3097
-        local Wolfy = -364
-        local Wolfz = -1057
-        d(Player:Teleport(tonumber(Wolfx),tonumber(Wolfy),tonumber(Wolfz)))
-        --------------------------------------------------              
-        elseif ( arg == "Jumper.PointA" ) then
-        local PointAx = 1904
-        local PointAy = -1149
-        local PointAz = -2485
-        d(Player:Teleport(tonumber(PointAx),tonumber(PointAy),tonumber(PointAz)))
-
-        elseif ( arg == "Jumper.PointB" ) then
-        local PointBx = -1405
-        local PointBy = 1626
-        local PointBz = -3224
-        d(Player:Teleport(tonumber(PointBx),tonumber(PointBy),tonumber(PointBz)))
-
-        elseif ( arg == "Jumper.PointC" ) then
-        local PointCx = 1892
-        local PointCy = 4590
-        local PointCz = -2485
-        d(Player:Teleport(tonumber(PointCx),tonumber(PointCy),tonumber(PointCz)))
-        --------------------------------------------------                      
-        elseif ( arg == "Jumper.mitarget" ) then
-        local t = Player:GetTarget()
-        d(Player:Teleport(tonumber(t.pos.x),tonumber(t.pos.y),tonumber(t.pos.z)))
-
+                if facing == "N" then d(Player:Teleport(CCT.pos.x, CCT.pos.y-90, CCT.pos.z))
+                Player:SetFacingExact(CCT.pos.x,CCT.pos.y,CCT.pos.z,true) 
+                elseif facing == "S" then d(Player:Teleport(CCT.pos.x, CCT.pos.y+90, CCT.pos.z))
+                Player:SetFacingExact(CCT.pos.x,CCT.pos.y,CCT.pos.z,true) 
+                elseif facing == "E" then d(Player:Teleport(CCT.pos.x-90, CCT.pos.y, CCT.pos.z)) 
+                Player:SetFacingExact(CCT.pos.x,CCT.pos.y,CCT.pos.z,true) 
+                elseif facing == "W" then d(Player:Teleport(CCT.pos.x+90, CCT.pos.y, CCT.pos.z))
+                Player:SetFacingExact(CCT.pos.x,CCT.pos.y,CCT.pos.z,true) 
+                elseif facing == "NE" then d(Player:Teleport(CCT.pos.x-90, CCT.pos.y-90, CCT.pos.z))
+                Player:SetFacingExact(CCT.pos.x,CCT.pos.y,CCT.pos.z,true) 
+                elseif facing == "NW" then d(Player:Teleport(CCT.pos.x+90, CCT.pos.y-90, CCT.pos.z)) 
+                Player:SetFacingExact(CCT.pos.x,CCT.pos.y,CCT.pos.z,true) 
+                elseif facing == "SE" then d(Player:Teleport(CCT.pos.x-90, CCT.pos.y+90, CCT.pos.z)) 
+                Player:SetFacingExact(CCT.pos.x,CCT.pos.y,CCT.pos.z,true) 
+                elseif facing == "SW" then d(Player:Teleport(CCT.pos.x+90, CCT.pos.y+90, CCT.pos.z)) 
+                Player:SetFacingExact(CCT.pos.x,CCT.pos.y,CCT.pos.z,true) 
+                end
     end
 end
---------------------------------------------------------------------
-function Jumper.OnUpdateHandler( Event, ticks )     
-    if ( Jumper.running and Jumper.initialized ) then
-        if ( ticks - Jumper.lastticks &gt; 500 ) then
-            if ( Jumper.lastticks == 0 ) then
-                Jumper.lastticks = ticks + 2000
-                return
-            end         
-            Jumper.lastticks = ticks
-        end
+
+function Creep.UpdateWindow() -- show some stats on the target, define some variables, constantly updating with info
+            local CCT = Player:GetTarget()
+            if CCT ~= nil then  
+
+            TName = tostring(CCT.name)
+            CCTHP = tostring(CCT.health.current.." of "..CCT.health.max.." / "..CCT.health.percent.."%")
+            TDist = tostring(math.floor(CCT.distance))
+            ------------------------------------------------
+            TPos = math.floor(CCT.pos.x).." / "..math.floor(CCT.pos.y).." / "..math.floor(CCT.pos.z)
+            THead = (math.floor(CCT.pos.hx * 10) / 10).." / "..(math.floor(CCT.pos.hy * 10) / 10).." / "..(math.floor(CCT.pos.hz * 10) / 10)
+            ------------------------------------------------
+            radians = math.atan2(CCT.pos.hx,CCT.pos.hy)
+            degrees = math.deg(radians)
+            if degrees &lt; 0 then degrees = 360 + degrees end             
+            ------------------------------------------------
+            rradians = (math.floor(radians * 100 ) / 100 ) -- Rounded
+            rdegrees = (math.floor(degrees * 100 ) / 100 ) -- Rounded
+            ------------------------------------------------
+            Myself = math.floor(Player.pos.x).." / "..math.floor(Player.pos.y).." / "..math.floor(Player.pos.z)
+            myradians = math.atan2(Player.pos.hx,Player.pos.hy)
+            mydegrees = math.deg(myradians)
+            if mydegrees &lt; 0 then mydegrees = (360 + mydegrees) end             
+            ------------------------------------------------
+            myrradians = (math.floor(myradians * 100 ) / 100 ) -- Rounded
+            myrdegrees = (math.floor(mydegrees * 100 ) / 100 ) -- Rounded
+            myposition = math.floor(Player.pos.x).." / "..math.floor(Player.pos.y).." / "..math.floor(Player.pos.z)
+            ------------------------------------------------
+            facing = Creep.facingdirection()
+            myfacing = Creep.myfacingdirection()
     end
 end
---------------------------------------------------------------------
-RegisterEventHandler("Module.Initalize",Jumper.ModuleInit)
-RegisterEventHandler("Gameloop.Update", Jumper.OnUpdateHandler)
-RegisterEventHandler("GUI.Update",Jumper.GUIVarUpdate)
+
+function Creep.facingdirection()
+        if degrees &gt;= -1 and degrees &lt;= 22.5 then return ("N") end
+        if degrees &gt;= 337.5 and degrees &lt;= 361 then return ("N") end
+        if degrees &gt;= 22.5 and degrees &lt;= 67.5 then return ("NE") end
+        if degrees &gt;= 67.5 and degrees &lt;= 112.5 then return ("E") end
+        if degrees &gt;= 112.5 and degrees &lt;= 157.5 then return ("SE") end
+        if degrees &gt;= 157.5 and degrees &lt;= 202.5 then return ("S") end
+        if degrees &gt;= 202.5 and degrees &lt;= 247.5 then return ("SW") end
+        if degrees &gt;= 247.5 and degrees &lt;= 292.5 then return ("W") end
+        if degrees &gt;= 292.5 and degrees &lt;= 337.5 then return ("NW") end
+end
+
+function Creep.myfacingdirection()
+        if mydegrees &gt;= -1 and mydegrees &lt;= 22.5 then return ("N") end
+        if mydegrees &gt;= 337.5 and mydegrees &lt;= 361 then return ("N") end        
+        if mydegrees &gt;= 22.5 and mydegrees &lt;= 67.5 then return ("NE") end
+        if mydegrees &gt;= 67.5 and mydegrees &lt;= 112.5 then return ("E") end
+        if mydegrees &gt;= 112.5 and mydegrees &lt;= 157.5 then return ("SE") end
+        if mydegrees &gt;= 157.5 and mydegrees &lt;= 202.5 then return ("S") end
+        if mydegrees &gt;= 202.5 and mydegrees &lt;= 247.5 then return ("SW") end
+        if mydegrees &gt;= 247.5 and mydegrees &lt;= 292.5 then return ("W") end
+        if mydegrees &gt;= 292.5 and mydegrees &lt;= 337.5 then return ("NW") end 
+end
+
+function Creep.OnUpdateHandler( Event, ticks )          
+    Creep.UpdateWindow()
+end
+
+RegisterEventHandler("Module.Initalize",Creep.ModuleInit)
+RegisterEventHandler("Gameloop.Update", Creep.OnUpdateHandler)
+RegisterEventHandler("GUI.Update",Creep.GUIVarUpdate)
 </code></pre>
       </section>
 
